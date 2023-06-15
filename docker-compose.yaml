@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 services:
     service-uc-controller-user:
         container_name: uc-controller-user
@@ -45,13 +45,28 @@ services:
             - 5050:80
         networks:
             uc_network:
+
+    service-user-app:
+        container_name: user-app
+        image: testing_user_app:latest
+        build:
+            context: ./
+            dockerfile: ./docker/Dockerfile
+        volumes:
+            - ./user-app:/home/uca_user/user-app
+            - /home/uca_user/user-app/node_modules
+        command: sh -c "ng serve --host 0.0.0.0"
+        ports:
+            - 4200:4200
+        networks:
+            uc_network:
 networks:
-  uc_network:
-    driver: bridge
-    ipam:
-        driver: default
-        config:
-          - subnet: 30.7.0.0/16
+    uc_network:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 30.7.0.0/16
 
 volumes:
     ucWorkshopPgData:

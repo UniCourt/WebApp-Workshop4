@@ -1,0 +1,41 @@
+<div class="container">
+  <form [formGroup]="userFormBuilder" (keydown.enter)="addUser()">
+  <div class="form">
+    <h2>Enter Details</h2>
+    <div class="input-form">
+      <label>Name </label>
+      <input placeholder="Enter the name"  formControlName="name" />
+    </div>
+    <div class="input-form">
+      <label>Email</label>
+      <input placeholder="Enter the email id"  formControlName="emailId" />
+    </div>
+    <div class="input-form">
+      <label>Phone</label>
+      <input placeholder="Enter the phone number"  formControlName="phoneNumber" />
+    </div>
+    <div class="input-form">
+      <label>Company</label>
+      <input placeholder="Enter the company name" formControlName="companyName" />
+    </div>
+    <div class="input-form">
+      <label>Street</label>
+      <input placeholder="Enter the street" formControlName="street" />
+    </div>
+    <div class="input-form">
+      <label>City</label>
+      <input placeholder="Enter the city" formControlName="city" />
+    </div>
+    <div class="input-form">
+      <label>Zipcode</label>
+      <input placeholder="Enter the zipcode" formControlName="zipCode" />
+    </div>
+    <div class="error" *ngIf="hasError">
+      <span>Please enter all the details</span>
+    </div>
+    <div class="form-btn">
+      <button (click)="addUser()">Add User</button>
+    </div>
+  </div>
+</form>
+</div>

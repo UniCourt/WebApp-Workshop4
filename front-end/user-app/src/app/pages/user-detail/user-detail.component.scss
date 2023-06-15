@@ -1,0 +1,21 @@
+.user-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.card {
+  height: 400px;
+  width: 300px;
+  border: 1px solid rgb(131, 196, 201);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.error {
+  font-size: 16px;
+  color: red;
+}

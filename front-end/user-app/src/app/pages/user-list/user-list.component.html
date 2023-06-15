@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="header">
+    <h2>User List</h2>
+    <button routerLink="create-user">Create User</button>
+  </div>
+
+  <div class="user-card-container">
+    <app-user-card
+      *ngFor="let user of userService.users"
+      [id]="user.id"
+      [name]="user.name"
+      [city]="user.city"
+      [emailId]="user.emailId"
+      (deleteUser)="deleteUser($event)"
+    ></app-user-card>
+  </div>
+</div>
