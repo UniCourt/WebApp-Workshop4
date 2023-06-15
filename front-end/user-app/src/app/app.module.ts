@@ -12,6 +12,9 @@ import { ContactComponent } from './pages/static/contact/contact.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogInterceptor } from './interceptors/log.interceptor';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { LogInterceptor } from './interceptors/log.interceptor';
     AboutUsComponent,
     ContactComponent,
     UserListComponent,
+    SignUpComponent,
+    LoginComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
