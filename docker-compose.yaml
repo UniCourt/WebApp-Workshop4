@@ -50,10 +50,10 @@ services:
         container_name: user-app
         image: testing_user_app:latest
         build:
-            context: ./
+            context: ./front-end/
             dockerfile: ./docker/Dockerfile
         volumes:
-            - ./user-app:/home/uca_user/user-app
+            - ./front-end/user-app:/home/uca_user/user-app
             - /home/uca_user/user-app/node_modules
         command: sh -c "ng serve --host 0.0.0.0"
         ports:

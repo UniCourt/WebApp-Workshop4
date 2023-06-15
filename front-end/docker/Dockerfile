@@ -9,5 +9,3 @@ COPY ./user-app/*.json ./
 RUN npm install 
 
 COPY . .
-
-
