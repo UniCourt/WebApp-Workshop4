@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+    service-uc-controller-user:
+        container_name: uc-controller-user
+        image: testing_uc_controller_user:latest
+        build:
+            context: .
+            dockerfile: uc-controller-user/docker/Dockerfile
+            target: development
+            args:
+                NODE_ENV: dev
+        ports:
+            - "3007:3007"
+            - "4007:4007"
+        networks:
+            uc_network:
+        env_file:
+            - .env/db.env
+        volumes:
+            - ./uc-controller-user/controller-user:/home/uc_user/controller-user
+            - /uc-controller-user/controller-user/prisma/prismaAuthUserClient
+            - /home/uc_user/controller-user/node_modules/
+        command: npm run start:debug
+
+    service-uc-postgres:
+        container_name: uc-workshop-postgres
+        image: postgres:14
+        networks:
+            uc_network:
+                ipv4_address: 30.7.1.201
+        env_file:
+            - .env/db.env
+        ports:
+            - 5438:5432
+        volumes:
+            - ucWorkshopPgData:/var/lib/postgresql/data
+
+    service-uc-pgadmin:
+        container_name: uc-pgadmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: root
+        ports:
+            - 5050:80
+        networks:
+            uc_network:
+networks:
+  uc_network:
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+          - subnet: 30.7.0.0/16
+
+volumes:
+    ucWorkshopPgData:
