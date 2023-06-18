@@ -8,6 +8,8 @@ LABEL maintainer="UniCourt Workshop <unicourt.com>" \
 
 WORKDIR /home/uc_user/controller-user
 
+COPY uc-controller-user/docker/prisma.sh ./
+
 COPY uc-controller-user/controller-user/package.json .
 
 COPY uc-controller-user/controller-user/.npmrc .
