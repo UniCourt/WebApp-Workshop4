@@ -1,18 +1,23 @@
-import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Query, Body, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { createContactDto } from 'src/dto/contact.dto';
-
+import { JwtAuthGuard } from "../authGuard/jwt-auth.guard";
 @Controller('contact')
 export class ContactController {
   constructor(private contactService: ContactService) {}
-  @Get('/getUser')
-  getUser(userData:any) {
-    return this.contactService.getUser(userData);
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/getContact')
+  getUser(@Query() query) {    
+    return this.contactService.getUser(query);
   }
 
-  @Post('/createUser')
-  async createUser(userData: createContactDto) {
-    return await this.contactService.createUser(userData);
+  @UseGuards(JwtAuthGuard)
+  @Post('/createContact')
+  async createUser(@Body() userData) {
+    console.log(userData);
+    
+    return await this.contactService.createUser(userData.data);
   }
 
   @Post('/updateUser')
@@ -20,14 +25,21 @@ export class ContactController {
     return await this.contactService.updateUser(userData);
   }
 
-  @Delete('/deleteUser')
-  async deleteUser(userData:any){
-    return await this.contactService.deleteUser(userData);
+  @UseGuards(JwtAuthGuard)
+  @Delete('/deleteContact')
+  async deleteUser(@Query() queryData){
+    console.log(queryData);
+    console.log("==================");
+    
+    
+    return await this.contactService.deleteContact(queryData);
   }
 
-  @Get('/getUserById/:id')
-  getUserById(@Param('id') id) {
-    return this.contactService.getUserById(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('/getUserById')
+  getUserById(@Query() queryData) {
+    console.log();
+    return this.contactService.getUserById(queryData);
   }
   
 }

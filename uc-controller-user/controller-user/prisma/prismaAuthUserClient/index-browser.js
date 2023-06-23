@@ -94,7 +94,8 @@ exports.Prisma.ContactScalarFieldEnum = {
   city: 'city',
   zipcode: 'zipcode',
   companyName: 'companyName',
-  phoneNumber: 'phoneNumber'
+  phoneNumber: 'phoneNumber',
+  userId: 'userId'
 };
 
 exports.Prisma.QueryMode = {

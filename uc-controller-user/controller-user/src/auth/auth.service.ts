@@ -37,9 +37,11 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto): Promise<any> {
     // find user in db
     const user = await this.usersService.findByLogin(loginUserDto);
-
+    if(!user){
+      return;
+    }
     // generate and sign token
-    const token = this._createToken(user);
+    const token = await this._createToken(user);
 
     return {
       ...token,
@@ -47,9 +49,14 @@ export class AuthService {
     };
   }
 
-  private _createToken({ login }): any {
-    const user: JwtPayload = { login };
+  private _createToken(userData): any {
+    
+    const user: JwtPayload = { userId: userData.id, userEmailId:userData.emailId };
+    console.log(user);
+    
     const Authorization = this.jwtService.sign(user);
+    console.log(Authorization);
+    
     return {
       expiresIn: process.env.EXPIRESIN,
       Authorization,
@@ -62,6 +69,16 @@ export class AuthService {
       throw new HttpException('INVALID_TOKEN', HttpStatus.UNAUTHORIZED);
     }
     return user;
+  }
+
+  async validateToken(token){
+    const payload = await this.jwtService.verifyAsync(
+          token,
+          {
+          secret: process.env.SECRETKEY
+          }
+      );
+    return payload;
   }
 }
 

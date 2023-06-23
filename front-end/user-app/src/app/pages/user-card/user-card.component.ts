@@ -34,7 +34,9 @@ export class UserCardComponent {
     this.userService.userId = id;
   }
 
-  deleteUserById(id) {
-    this.deleteUser.emit(id);
+  deleteUserById(contactId) {
+    console.log(contactId);
+    this.userService.deleteUser(contactId);
+    // this.deleteUser.emit(id);
   }
 }

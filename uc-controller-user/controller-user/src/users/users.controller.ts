@@ -23,7 +23,7 @@ export class UsersController {
   // public async me(@Request() req) {
   //   return new RenderUser(req.user);
   // }
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Put('update/password')
   public async updatePassword(

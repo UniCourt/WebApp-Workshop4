@@ -17,6 +17,7 @@ services:
         env_file:
             - .env/prisma.env
             - .env/db.env
+            - .env/auth.env
         volumes:
             - ./uc-controller-user/controller-user:/home/uc_user/controller-user
             - /uc-controller-user/controller-user/prisma/prismaAuthUserClient

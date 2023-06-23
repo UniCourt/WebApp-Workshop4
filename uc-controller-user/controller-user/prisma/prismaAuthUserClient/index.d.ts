@@ -37,7 +37,8 @@ export type Contact = {
   city: string
   zipcode: number
   companyName: string
-  phoneNumber: bigint
+  phoneNumber: string
+  userId: number
 }
 
 
@@ -808,6 +809,48 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+
+  export type UserCountOutputType = {
+    contacts: number
+  }
+
+  export type UserCountOutputTypeSelect = {
+    contacts?: boolean
+  }
+
+  export type UserCountOutputTypeGetPayload<S extends boolean | null | undefined | UserCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? UserCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (UserCountOutputTypeArgs)
+    ? UserCountOutputType 
+    : S extends { select: any } & (UserCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof UserCountOutputType ? UserCountOutputType[P] : never
+  } 
+      : UserCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect | null
+  }
+
+
 
   /**
    * Models
@@ -1021,19 +1064,31 @@ export namespace Prisma {
     lastName?: boolean
     password?: boolean
     createdAt?: boolean
+    contacts?: boolean | User$contactsArgs
+    _count?: boolean | UserCountOutputTypeArgs
   }
 
+
+  export type UserInclude = {
+    contacts?: boolean | User$contactsArgs
+    _count?: boolean | UserCountOutputTypeArgs
+  }
 
   export type UserGetPayload<S extends boolean | null | undefined | UserArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
     S extends true ? User :
     S extends undefined ? never :
     S extends { include: any } & (UserArgs | UserFindManyArgs)
-    ? User 
+    ? User  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'contacts' ? Array < ContactGetPayload<S['include'][P]>>  :
+        P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
     : S extends { select: any } & (UserArgs | UserFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-    P extends keyof User ? User[P] : never
+        P extends 'contacts' ? Array < ContactGetPayload<S['select'][P]>>  :
+        P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof User ? User[P] : never
   } 
       : User
 
@@ -1405,6 +1460,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    contacts<T extends User$contactsArgs= {}>(args?: Subset<T, User$contactsArgs>): Prisma.PrismaPromise<Array<ContactGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -1442,6 +1498,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1468,6 +1528,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1482,6 +1546,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
     /**
      * Filter, which User to fetch.
      */
@@ -1539,6 +1607,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1584,6 +1656,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1624,6 +1700,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
@@ -1650,6 +1730,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
     /**
      * The data needed to update a User.
      */
@@ -1685,6 +1769,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1708,6 +1796,10 @@ export namespace Prisma {
      */
     select?: UserSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1726,6 +1818,27 @@ export namespace Prisma {
 
 
   /**
+   * User.contacts
+   */
+  export type User$contactsArgs = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    where?: ContactWhereInput
+    orderBy?: Enumerable<ContactOrderByWithRelationInput>
+    cursor?: ContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<ContactScalarFieldEnum>
+  }
+
+
+  /**
    * User without action
    */
   export type UserArgs = {
@@ -1733,6 +1846,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the User
      */
     select?: UserSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: UserInclude | null
   }
 
 
@@ -1753,13 +1870,13 @@ export namespace Prisma {
   export type ContactAvgAggregateOutputType = {
     id: number | null
     zipcode: number | null
-    phoneNumber: number | null
+    userId: number | null
   }
 
   export type ContactSumAggregateOutputType = {
     id: number | null
     zipcode: number | null
-    phoneNumber: bigint | null
+    userId: number | null
   }
 
   export type ContactMinAggregateOutputType = {
@@ -1770,7 +1887,8 @@ export namespace Prisma {
     city: string | null
     zipcode: number | null
     companyName: string | null
-    phoneNumber: bigint | null
+    phoneNumber: string | null
+    userId: number | null
   }
 
   export type ContactMaxAggregateOutputType = {
@@ -1781,7 +1899,8 @@ export namespace Prisma {
     city: string | null
     zipcode: number | null
     companyName: string | null
-    phoneNumber: bigint | null
+    phoneNumber: string | null
+    userId: number | null
   }
 
   export type ContactCountAggregateOutputType = {
@@ -1793,6 +1912,7 @@ export namespace Prisma {
     zipcode: number
     companyName: number
     phoneNumber: number
+    userId: number
     _all: number
   }
 
@@ -1800,13 +1920,13 @@ export namespace Prisma {
   export type ContactAvgAggregateInputType = {
     id?: true
     zipcode?: true
-    phoneNumber?: true
+    userId?: true
   }
 
   export type ContactSumAggregateInputType = {
     id?: true
     zipcode?: true
-    phoneNumber?: true
+    userId?: true
   }
 
   export type ContactMinAggregateInputType = {
@@ -1818,6 +1938,7 @@ export namespace Prisma {
     zipcode?: true
     companyName?: true
     phoneNumber?: true
+    userId?: true
   }
 
   export type ContactMaxAggregateInputType = {
@@ -1829,6 +1950,7 @@ export namespace Prisma {
     zipcode?: true
     companyName?: true
     phoneNumber?: true
+    userId?: true
   }
 
   export type ContactCountAggregateInputType = {
@@ -1840,6 +1962,7 @@ export namespace Prisma {
     zipcode?: true
     companyName?: true
     phoneNumber?: true
+    userId?: true
     _all?: true
   }
 
@@ -1938,7 +2061,8 @@ export namespace Prisma {
     city: string
     zipcode: number
     companyName: string
-    phoneNumber: bigint
+    phoneNumber: string
+    userId: number
     _count: ContactCountAggregateOutputType | null
     _avg: ContactAvgAggregateOutputType | null
     _sum: ContactSumAggregateOutputType | null
@@ -1969,19 +2093,28 @@ export namespace Prisma {
     zipcode?: boolean
     companyName?: boolean
     phoneNumber?: boolean
+    userId?: boolean
+    user?: boolean | UserArgs
   }
 
+
+  export type ContactInclude = {
+    user?: boolean | UserArgs
+  }
 
   export type ContactGetPayload<S extends boolean | null | undefined | ContactArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
     S extends true ? Contact :
     S extends undefined ? never :
     S extends { include: any } & (ContactArgs | ContactFindManyArgs)
-    ? Contact 
+    ? Contact  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'user' ? UserGetPayload<S['include'][P]> :  never
+  } 
     : S extends { select: any } & (ContactArgs | ContactFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-    P extends keyof Contact ? Contact[P] : never
+        P extends 'user' ? UserGetPayload<S['select'][P]> :  P extends keyof Contact ? Contact[P] : never
   } 
       : Contact
 
@@ -2353,6 +2486,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    user<T extends UserArgs= {}>(args?: Subset<T, UserArgs>): Prisma__UserClient<UserGetPayload<T> | Null>;
 
     private get _document();
     /**
@@ -2390,6 +2524,10 @@ export namespace Prisma {
      */
     select?: ContactSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    /**
      * Filter, which Contact to fetch.
      */
     where: ContactWhereUniqueInput
@@ -2416,6 +2554,10 @@ export namespace Prisma {
      */
     select?: ContactSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    /**
      * Filter, which Contact to fetch.
      */
     where: ContactWhereUniqueInput
@@ -2430,6 +2572,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Contact
      */
     select?: ContactSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
     /**
      * Filter, which Contact to fetch.
      */
@@ -2487,6 +2633,10 @@ export namespace Prisma {
      */
     select?: ContactSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    /**
      * Filter, which Contact to fetch.
      */
     where?: ContactWhereInput
@@ -2532,6 +2682,10 @@ export namespace Prisma {
      */
     select?: ContactSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    /**
      * Filter, which Contacts to fetch.
      */
     where?: ContactWhereInput
@@ -2572,6 +2726,10 @@ export namespace Prisma {
      */
     select?: ContactSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    /**
      * The data needed to create a Contact.
      */
     data: XOR<ContactCreateInput, ContactUncheckedCreateInput>
@@ -2598,6 +2756,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Contact
      */
     select?: ContactSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
     /**
      * The data needed to update a Contact.
      */
@@ -2633,6 +2795,10 @@ export namespace Prisma {
      */
     select?: ContactSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
+    /**
      * The filter to search for the Contact to update in case it exists.
      */
     where: ContactWhereUniqueInput
@@ -2655,6 +2821,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Contact
      */
     select?: ContactSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
     /**
      * Filter which Contact to delete.
      */
@@ -2681,6 +2851,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Contact
      */
     select?: ContactSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContactInclude | null
   }
 
 
@@ -2697,7 +2871,8 @@ export namespace Prisma {
     city: 'city',
     zipcode: 'zipcode',
     companyName: 'companyName',
-    phoneNumber: 'phoneNumber'
+    phoneNumber: 'phoneNumber',
+    userId: 'userId'
   };
 
   export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
@@ -2756,6 +2931,7 @@ export namespace Prisma {
     lastName?: StringFilter | string
     password?: StringFilter | string
     createdAt?: DateTimeFilter | Date | string
+    contacts?: ContactListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -2765,10 +2941,12 @@ export namespace Prisma {
     lastName?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    contacts?: ContactOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = {
     id?: number
+    emailId?: string
   }
 
   export type UserOrderByWithAggregationInput = {
@@ -2808,7 +2986,9 @@ export namespace Prisma {
     city?: StringFilter | string
     zipcode?: IntFilter | number
     companyName?: StringFilter | string
-    phoneNumber?: BigIntFilter | bigint | number
+    phoneNumber?: StringFilter | string
+    userId?: IntFilter | number
+    user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
   export type ContactOrderByWithRelationInput = {
@@ -2820,6 +3000,8 @@ export namespace Prisma {
     zipcode?: SortOrder
     companyName?: SortOrder
     phoneNumber?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type ContactWhereUniqueInput = {
@@ -2835,6 +3017,7 @@ export namespace Prisma {
     zipcode?: SortOrder
     companyName?: SortOrder
     phoneNumber?: SortOrder
+    userId?: SortOrder
     _count?: ContactCountOrderByAggregateInput
     _avg?: ContactAvgOrderByAggregateInput
     _max?: ContactMaxOrderByAggregateInput
@@ -2853,7 +3036,8 @@ export namespace Prisma {
     city?: StringWithAggregatesFilter | string
     zipcode?: IntWithAggregatesFilter | number
     companyName?: StringWithAggregatesFilter | string
-    phoneNumber?: BigIntWithAggregatesFilter | bigint | number
+    phoneNumber?: StringWithAggregatesFilter | string
+    userId?: IntWithAggregatesFilter | number
   }
 
   export type UserCreateInput = {
@@ -2862,6 +3046,7 @@ export namespace Prisma {
     lastName: string
     password: string
     createdAt?: Date | string
+    contacts?: ContactCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2871,6 +3056,7 @@ export namespace Prisma {
     lastName: string
     password: string
     createdAt?: Date | string
+    contacts?: ContactUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -2879,6 +3065,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: ContactUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2888,6 +3075,7 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: ContactUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2923,7 +3111,8 @@ export namespace Prisma {
     city: string
     zipcode: number
     companyName: string
-    phoneNumber: bigint | number
+    phoneNumber: string
+    user: UserCreateNestedOneWithoutContactsInput
   }
 
   export type ContactUncheckedCreateInput = {
@@ -2934,7 +3123,8 @@ export namespace Prisma {
     city: string
     zipcode: number
     companyName: string
-    phoneNumber: bigint | number
+    phoneNumber: string
+    userId: number
   }
 
   export type ContactUpdateInput = {
@@ -2944,7 +3134,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     zipcode?: IntFieldUpdateOperationsInput | number
     companyName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: BigIntFieldUpdateOperationsInput | bigint | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutContactsNestedInput
   }
 
   export type ContactUncheckedUpdateInput = {
@@ -2955,7 +3146,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     zipcode?: IntFieldUpdateOperationsInput | number
     companyName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: BigIntFieldUpdateOperationsInput | bigint | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ContactCreateManyInput = {
@@ -2966,7 +3158,8 @@ export namespace Prisma {
     city: string
     zipcode: number
     companyName: string
-    phoneNumber: bigint | number
+    phoneNumber: string
+    userId: number
   }
 
   export type ContactUpdateManyMutationInput = {
@@ -2976,7 +3169,7 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     zipcode?: IntFieldUpdateOperationsInput | number
     companyName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: BigIntFieldUpdateOperationsInput | bigint | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
   }
 
   export type ContactUncheckedUpdateManyInput = {
@@ -2987,7 +3180,8 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     zipcode?: IntFieldUpdateOperationsInput | number
     companyName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: BigIntFieldUpdateOperationsInput | bigint | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter = {
@@ -3025,6 +3219,16 @@ export namespace Prisma {
     gt?: Date | string
     gte?: Date | string
     not?: NestedDateTimeFilter | Date | string
+  }
+
+  export type ContactListRelationFilter = {
+    every?: ContactWhereInput
+    some?: ContactWhereInput
+    none?: ContactWhereInput
+  }
+
+  export type ContactOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -3110,15 +3314,9 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type BigIntFilter = {
-    equals?: bigint | number
-    in?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    notIn?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    lt?: bigint | number
-    lte?: bigint | number
-    gt?: bigint | number
-    gte?: bigint | number
-    not?: NestedBigIntFilter | bigint | number
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type ContactCountOrderByAggregateInput = {
@@ -3130,12 +3328,13 @@ export namespace Prisma {
     zipcode?: SortOrder
     companyName?: SortOrder
     phoneNumber?: SortOrder
+    userId?: SortOrder
   }
 
   export type ContactAvgOrderByAggregateInput = {
     id?: SortOrder
     zipcode?: SortOrder
-    phoneNumber?: SortOrder
+    userId?: SortOrder
   }
 
   export type ContactMaxOrderByAggregateInput = {
@@ -3147,6 +3346,7 @@ export namespace Prisma {
     zipcode?: SortOrder
     companyName?: SortOrder
     phoneNumber?: SortOrder
+    userId?: SortOrder
   }
 
   export type ContactMinOrderByAggregateInput = {
@@ -3158,28 +3358,27 @@ export namespace Prisma {
     zipcode?: SortOrder
     companyName?: SortOrder
     phoneNumber?: SortOrder
+    userId?: SortOrder
   }
 
   export type ContactSumOrderByAggregateInput = {
     id?: SortOrder
     zipcode?: SortOrder
-    phoneNumber?: SortOrder
+    userId?: SortOrder
   }
 
-  export type BigIntWithAggregatesFilter = {
-    equals?: bigint | number
-    in?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    notIn?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    lt?: bigint | number
-    lte?: bigint | number
-    gt?: bigint | number
-    gte?: bigint | number
-    not?: NestedBigIntWithAggregatesFilter | bigint | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedBigIntFilter
-    _min?: NestedBigIntFilter
-    _max?: NestedBigIntFilter
+  export type ContactCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutUserInput>, Enumerable<ContactUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutUserInput>
+    createMany?: ContactCreateManyUserInputEnvelope
+    connect?: Enumerable<ContactWhereUniqueInput>
+  }
+
+  export type ContactUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutUserInput>, Enumerable<ContactUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutUserInput>
+    createMany?: ContactCreateManyUserInputEnvelope
+    connect?: Enumerable<ContactWhereUniqueInput>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3190,6 +3389,20 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type ContactUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutUserInput>, Enumerable<ContactUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<ContactUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: ContactCreateManyUserInputEnvelope
+    set?: Enumerable<ContactWhereUniqueInput>
+    disconnect?: Enumerable<ContactWhereUniqueInput>
+    delete?: Enumerable<ContactWhereUniqueInput>
+    connect?: Enumerable<ContactWhereUniqueInput>
+    update?: Enumerable<ContactUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<ContactUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<ContactScalarWhereInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -3198,12 +3411,32 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
+  export type ContactUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutUserInput>, Enumerable<ContactUncheckedCreateWithoutUserInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutUserInput>
+    upsert?: Enumerable<ContactUpsertWithWhereUniqueWithoutUserInput>
+    createMany?: ContactCreateManyUserInputEnvelope
+    set?: Enumerable<ContactWhereUniqueInput>
+    disconnect?: Enumerable<ContactWhereUniqueInput>
+    delete?: Enumerable<ContactWhereUniqueInput>
+    connect?: Enumerable<ContactWhereUniqueInput>
+    update?: Enumerable<ContactUpdateWithWhereUniqueWithoutUserInput>
+    updateMany?: Enumerable<ContactUpdateManyWithWhereWithoutUserInput>
+    deleteMany?: Enumerable<ContactScalarWhereInput>
+  }
+
+  export type UserCreateNestedOneWithoutContactsInput = {
+    create?: XOR<UserCreateWithoutContactsInput, UserUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutContactsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutContactsNestedInput = {
+    create?: XOR<UserCreateWithoutContactsInput, UserUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutContactsInput
+    upsert?: UserUpsertWithoutContactsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<UserUpdateWithoutContactsInput, UserUncheckedUpdateWithoutContactsInput>
   }
 
   export type NestedIntFilter = {
@@ -3300,31 +3533,153 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
-  export type NestedBigIntFilter = {
-    equals?: bigint | number
-    in?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    notIn?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    lt?: bigint | number
-    lte?: bigint | number
-    gt?: bigint | number
-    gte?: bigint | number
-    not?: NestedBigIntFilter | bigint | number
+  export type ContactCreateWithoutUserInput = {
+    name: string
+    emailId: string
+    street: string
+    city: string
+    zipcode: number
+    companyName: string
+    phoneNumber: string
   }
 
-  export type NestedBigIntWithAggregatesFilter = {
-    equals?: bigint | number
-    in?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    notIn?: Enumerable<bigint> | Enumerable<number> | bigint | number
-    lt?: bigint | number
-    lte?: bigint | number
-    gt?: bigint | number
-    gte?: bigint | number
-    not?: NestedBigIntWithAggregatesFilter | bigint | number
-    _count?: NestedIntFilter
-    _avg?: NestedFloatFilter
-    _sum?: NestedBigIntFilter
-    _min?: NestedBigIntFilter
-    _max?: NestedBigIntFilter
+  export type ContactUncheckedCreateWithoutUserInput = {
+    id?: number
+    name: string
+    emailId: string
+    street: string
+    city: string
+    zipcode: number
+    companyName: string
+    phoneNumber: string
+  }
+
+  export type ContactCreateOrConnectWithoutUserInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutUserInput, ContactUncheckedCreateWithoutUserInput>
+  }
+
+  export type ContactCreateManyUserInputEnvelope = {
+    data: Enumerable<ContactCreateManyUserInput>
+    skipDuplicates?: boolean
+  }
+
+  export type ContactUpsertWithWhereUniqueWithoutUserInput = {
+    where: ContactWhereUniqueInput
+    update: XOR<ContactUpdateWithoutUserInput, ContactUncheckedUpdateWithoutUserInput>
+    create: XOR<ContactCreateWithoutUserInput, ContactUncheckedCreateWithoutUserInput>
+  }
+
+  export type ContactUpdateWithWhereUniqueWithoutUserInput = {
+    where: ContactWhereUniqueInput
+    data: XOR<ContactUpdateWithoutUserInput, ContactUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ContactUpdateManyWithWhereWithoutUserInput = {
+    where: ContactScalarWhereInput
+    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyWithoutContactsInput>
+  }
+
+  export type ContactScalarWhereInput = {
+    AND?: Enumerable<ContactScalarWhereInput>
+    OR?: Enumerable<ContactScalarWhereInput>
+    NOT?: Enumerable<ContactScalarWhereInput>
+    id?: IntFilter | number
+    name?: StringFilter | string
+    emailId?: StringFilter | string
+    street?: StringFilter | string
+    city?: StringFilter | string
+    zipcode?: IntFilter | number
+    companyName?: StringFilter | string
+    phoneNumber?: StringFilter | string
+    userId?: IntFilter | number
+  }
+
+  export type UserCreateWithoutContactsInput = {
+    firstName: string
+    emailId: string
+    lastName: string
+    password: string
+    createdAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutContactsInput = {
+    id?: number
+    firstName: string
+    emailId: string
+    lastName: string
+    password: string
+    createdAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutContactsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutContactsInput, UserUncheckedCreateWithoutContactsInput>
+  }
+
+  export type UserUpsertWithoutContactsInput = {
+    update: XOR<UserUpdateWithoutContactsInput, UserUncheckedUpdateWithoutContactsInput>
+    create: XOR<UserCreateWithoutContactsInput, UserUncheckedCreateWithoutContactsInput>
+  }
+
+  export type UserUpdateWithoutContactsInput = {
+    firstName?: StringFieldUpdateOperationsInput | string
+    emailId?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutContactsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firstName?: StringFieldUpdateOperationsInput | string
+    emailId?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactCreateManyUserInput = {
+    id?: number
+    name: string
+    emailId: string
+    street: string
+    city: string
+    zipcode: number
+    companyName: string
+    phoneNumber: string
+  }
+
+  export type ContactUpdateWithoutUserInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    emailId?: StringFieldUpdateOperationsInput | string
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zipcode?: IntFieldUpdateOperationsInput | number
+    companyName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    emailId?: StringFieldUpdateOperationsInput | string
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zipcode?: IntFieldUpdateOperationsInput | number
+    companyName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactUncheckedUpdateManyWithoutContactsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    emailId?: StringFieldUpdateOperationsInput | string
+    street?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    zipcode?: IntFieldUpdateOperationsInput | number
+    companyName?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
   }
 
 

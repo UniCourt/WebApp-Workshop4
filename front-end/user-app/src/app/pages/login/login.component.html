@@ -1,15 +1,15 @@
 <div class="login-container">
   <div class="login-card">
     <div class="login-title">
-      <h2>Welcome to User APP</h2>
+      <h2>Welcome to Address Book</h2>
     </div>
     <div class="login-logo">
       <img src="../../../assets/unicourt-logo.png" alt="logo" height="54" />
     </div>
-    <form class="login-form" [formGroup]="loginFormBuilder">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <input placeholder="Enter the username" formControlName="username" />
       <input placeholder="Enter the password" formControlName="password" />
-      <button class="btn-login">Login</button>
+      <button type="submit" class="btn-login" [disabled]="!loginForm.valid">Login</button>
     </form>
   </div>
   <div class="sign-up">

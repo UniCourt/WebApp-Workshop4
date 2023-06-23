@@ -1,19 +1,18 @@
 <div class="login-container">
   <div class="login-card">
     <div class="login-title">
-      <h2>SignUp to User APP</h2>
+      <h2>SignUp to Address Book</h2>
     </div>
     <div class="login-logo">
       <img src="../../../assets/unicourt-logo.png" alt="logo" height="54" />
     </div>
-    <form class="login-form" [formGroup]="loginFormBuilder">
-      <input placeholder="Enter the username" formControlName="username" />
-      <input placeholder="Enter the new password" formControlName="password" />
-      <input
-        placeholder="Enter the confirm password"
-        formControlName="confirmPassword"
-      />
-      <button class="btn-login">SignUp</button>
+    <form class="login-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
+      <input placeholder="First name*" formControlName="firstName" />
+      <input placeholder="Last name" formControlName="lastName" />
+      <input placeholder="Email Id*" formControlName="emailId" />
+      <input placeholder="Password*" formControlName="password" />
+      <input placeholder="Confirm password*" formControlName="confirmPassword"/>
+      <button type="submit" class="btn-login" [disabled]="!loginForm.valid">SignUp</button>
     </form>
   </div>
   <div class="sign-up">

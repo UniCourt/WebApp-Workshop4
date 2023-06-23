@@ -1,7 +1,10 @@
 <div class="container">
   <div class="header">
-    <h2>User List</h2>
-    <button routerLink="create-user">Create User</button>
+    <div>
+      <h2>User List</h2>
+      <button (click)="loadContact()">Fetch</button>
+    </div>
+    <button routerLink="create-user">Create Contact</button>
   </div>
 
   <div class="user-card-container">

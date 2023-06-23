@@ -20,7 +20,7 @@ export class CreateUserComponent {
         companyName: formBuilder.control("", [Validators.required]),
         city: formBuilder.control("", [Validators.required]),
         street: formBuilder.control("", [Validators.required]),
-        zipCode: formBuilder.control("", [Validators.required]),
+        zipcode: formBuilder.control('', [Validators.required]),
     });
   }
 
@@ -35,7 +35,7 @@ export class CreateUserComponent {
         companyName: this.userFormBuilder.controls['companyName'].value,
         street: this.userFormBuilder.controls['street'].value,
         city: this.userFormBuilder.controls['city'].value,
-        zipCode: this.userFormBuilder.controls['zipCode'].value,
+        zipcode: parseInt(this.userFormBuilder.controls['zipcode'].value),
       });
     } else {
       this.hasError = true;

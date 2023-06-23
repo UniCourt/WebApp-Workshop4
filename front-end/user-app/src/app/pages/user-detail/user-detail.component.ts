@@ -8,15 +8,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent {
-  userDetail: UserDetail = {
-    id: this.userService.userId,
-    name: '',
-    city: '',
-    companyName: '',
-    emailId: '',
-    phoneNumber: '',
-    street: '',
-    zipCode: '',
+  userDetail = {
+    // id: this.userService.userId,
+    // name: 'a',
+    // city: 'a',
+    // companyName: 'a',
+    // emailId: 'a',
+    // phoneNumber: 'a',
+    // street: 'a',
+    // zipcode: 'a',
   };
 
   hasError: boolean = false;
@@ -25,16 +25,24 @@ export class UserDetailComponent {
 
   ngOnInit() {
     this.hasError = false;
-    this.userService.getUserDetail(this.userService.userId).subscribe({
+    this.getUserDetails();
+  }
+  async getUserDetails(){
+    let contactId = await this.userService.userId;
+    this.userDetail = await this.userService.getUserDetail(this.userService.userId).subscribe({
       next: (response: any) => {
         console.log('user detail response', response);
-        this.userDetail.name = response.name;
-        this.userDetail.emailId = response.email;
-        this.userDetail.city = response.address.city;
-        this.userDetail.companyName = response.company.name;
-        this.userDetail.phoneNumber = response.phone;
-        this.userDetail.zipCode = response.address.zipcode;
-        this.userDetail.street = response.address.street;
+        this.userDetail['id'] = this.userService.userId,
+        this.userDetail['name'] = response.name;
+        this.userDetail['emailId'] = response.emailId;
+        this.userDetail['phoneNumber'] = response.phoneNumber;
+        this.userDetail['city'] = response.city;
+        this.userDetail['companyName'] = response.companyName;
+        this.userDetail['zipcode'] = response.zipcode;
+        this.userDetail['street'] = response.street;
+
+        console.log(this.userDetail);
+        
       },
       error: (error) => {
         this.hasError = true;

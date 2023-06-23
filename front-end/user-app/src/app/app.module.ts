@@ -15,6 +15,8 @@ import { LogInterceptor } from './interceptors/log.interceptor';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { ErrorCatchingInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,9 +40,19 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     ReactiveFormsModule,
   ],
   providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: LogInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: LogInterceptor,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorCatchingInterceptor,
       multi: true,
     },
   ],

@@ -20,5 +20,8 @@ export class createContactDto {
   companyName: string;
 
   @IsNotEmpty()
-  phoneNumber: bigint;
+  phoneNumber: string;
+
+  @IsNotEmpty()
+  userId: number
 }

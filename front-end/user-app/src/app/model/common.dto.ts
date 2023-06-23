@@ -11,7 +11,8 @@ export interface UserDetail {
   emailId: string;
   street: string;
   city: string;
-  zipCode: string;
+  zipcode: string;
   companyName: string;
   phoneNumber: string;
+  userId?: number;
 }
