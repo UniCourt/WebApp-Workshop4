@@ -20,6 +20,8 @@
 .input-form {
   height: 50px;
   padding: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .input-form > input {
@@ -41,7 +43,6 @@
   color: white;
   border-radius: 5px;
   border: solid 1px white;
-  margin-top: 20px;
   cursor: pointer;
 }
 

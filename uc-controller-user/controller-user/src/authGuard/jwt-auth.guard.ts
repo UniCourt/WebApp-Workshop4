@@ -21,6 +21,8 @@ import {
       console.log("token",token);
       
       if (!token) {
+        console.log("no token**");
+        
         throw new UnauthorizedException();
       }
       try {
@@ -39,6 +41,7 @@ import {
         request['user'] = payload;
       } catch(err) {
         console.log(err);
+        console.log("failed verification**");
         
         throw new UnauthorizedException();
       }

@@ -37,8 +37,9 @@ export class AuthService {
   async login(loginUserDto: LoginUserDto): Promise<any> {
     // find user in db
     const user = await this.usersService.findByLogin(loginUserDto);
+    console.log(user)
     if(!user){
-      return;
+      return false;
     }
     // generate and sign token
     const token = await this._createToken(user);
@@ -49,12 +50,12 @@ export class AuthService {
     };
   }
 
-  private _createToken(userData): any {
+  private async _createToken(userData): Promise<any> {
     
     const user: JwtPayload = { userId: userData.id, userEmailId:userData.emailId };
     console.log(user);
     
-    const Authorization = this.jwtService.sign(user);
+    const Authorization = await this.jwtService.sign(user);
     console.log(Authorization);
     
     return {

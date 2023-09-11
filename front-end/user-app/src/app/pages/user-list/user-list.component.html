@@ -1,13 +1,13 @@
 <div class="container">
   <div class="header">
     <div>
-      <h2>User List</h2>
-      <button (click)="loadContact()">Fetch</button>
+      <h2>Contact List</h2>
+      <!-- <button (click)="loadContact()">Fetch</button> -->
     </div>
-    <button routerLink="create-user">Create Contact</button>
+    <button routerLink="create-user">New Contact</button>
   </div>
 
-  <div class="user-card-container">
+  <div class="user-card-container" *ngIf="userService.users.length > 0">
     <app-user-card
       *ngFor="let user of userService.users"
       [id]="user.id"
@@ -16,5 +16,10 @@
       [emailId]="user.emailId"
       (deleteUser)="deleteUser($event)"
     ></app-user-card>
+  </div>
+  <div class="no-card-container" *ngIf="userService.users.length == 0">
+    <p>
+      No contacts found. Try create <a routerLink="/dashboard/create-user" >New Contact</a>.
+    </p>    
   </div>
 </div>

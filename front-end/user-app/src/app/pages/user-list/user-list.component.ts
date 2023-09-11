@@ -13,6 +13,10 @@ export class UserListComponent {
 
   constructor(public userService: UserService,public authService: AuthService) {
     // this.loadContact();
+    let loggedInUserId = this.authService.loggedInUser.id;
+    console.log(loggedInUserId);
+    this.loadContact(loggedInUserId);
+    
   }
 
   ngOnInit() {
@@ -23,11 +27,11 @@ export class UserListComponent {
     // this.loadContact();
 
   }
-  async loadContact(){
-    let loggedInUserId = 1
-    console.log(loggedInUserId);
+  async loadContact(userId){
+    // let loggedInUserId = 1
+    // console.log(loggedInUserId);
     
-    await this.userService.getContacts(loggedInUserId);
+    await this.userService.getContacts(userId);
   }
 
   deleteUser(event) {

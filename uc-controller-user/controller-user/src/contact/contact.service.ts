@@ -9,7 +9,7 @@ export class ContactService {
   async getUser(query) {
     console.log(query);
     
-    const data = await this.prisma.contact.findMany({where:{userId: 1}}).catch((err) => {
+    const data = await this.prisma.contact.findMany({where:{userId: parseInt(query.id)}}).catch((err) => {
       console.log(err);
       throw new HttpException(err, 400);
     });
@@ -22,8 +22,8 @@ export class ContactService {
     return this.prisma.contact.findFirst({ where: { id: parseInt(data.contactId),userId: parseInt(data.userId) } });
   }
 
-  async createUser(userData: createContactDto) {
-    console.log("userData ===>",userData);
+  async createUser(userData) {
+    console.log(userData);
     
     const data = await this.prisma.contact
       .create({ data: userData })

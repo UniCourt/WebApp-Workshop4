@@ -35,13 +35,15 @@ export class UsersService {
     const data = await this.prisma.user
     .findFirst({
       where: {
-        emailId: userData.emailId,
+        emailId: userData.username,
+        password: userData.password
       },
     })
     .catch((err) => {
       console.log(err);
       throw new HttpException('User Doesnt Exist', 400);
     });
+    console.log("---");
     console.log(data);
       
     return data;

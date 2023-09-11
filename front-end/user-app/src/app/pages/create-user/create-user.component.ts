@@ -28,7 +28,6 @@ export class CreateUserComponent {
     this.hasError = false;
     if (this.userFormBuilder.valid) {
       this.userService.addUser({
-        id: Math.floor(Math.random() * 10),
         name: this.userFormBuilder.controls['name'].value,
         emailId: this.userFormBuilder.controls['emailId'].value,
         phoneNumber: this.userFormBuilder.controls['phoneNumber'].value,
