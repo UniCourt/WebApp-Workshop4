@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
-import { User, UserDetail } from '../model/common.dto';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
@@ -9,24 +8,17 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  // baseUrl: string = 'https://jsonplaceholder.typicode.com/users';
   baseUrl: string = 'http://localhost:3007';
   userId: number;
   users = [];
 
   constructor(private http: HttpClient, private router: Router,private authService: AuthService) {}
 
-  // userAleadyAdded(): boolean {
-  //   this.users = JSON.parse(localStorage.getItem('users')) || [];
-  //   return this.users.length == 0 ? false : true;
-  // }
-
   async getContacts(id:number) {
     this.users = [];
     console.log("Get contacts: " + id);
     let loggedInUserId = this.authService.loggedInUser.id;
-    
-    
+
     await this.http.get(this.baseUrl + `/contact/getContact?id=${loggedInUserId}`).subscribe({
       next: (response: any) => {
         console.log(response);

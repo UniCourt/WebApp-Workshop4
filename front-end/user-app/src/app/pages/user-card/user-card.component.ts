@@ -14,29 +14,13 @@ export class UserCardComponent {
 
   @Output() deleteUser = new EventEmitter<Number>();
 
-  constructor(private userService: UserService) {
-    // console.log('Constructor called');
-  }
-
-  ngOnChanges() {
-    // console.log('on changes called');
-  }
-
-  ngOnInit() {
-    // console.log('on init called');
-  }
-
-  ngOnDestroy() {
-    console.log('on destroy called');
-  }
+  constructor(private userService: UserService) {}
 
   setUserId(id: number) {
     this.userService.userId = id;
   }
 
   deleteUserById(contactId) {
-    console.log(contactId);
     this.userService.deleteUser(contactId);
-    // this.deleteUser.emit(id);
   }
 }

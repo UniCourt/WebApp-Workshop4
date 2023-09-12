@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  // isLogedIn: boolean = false;
 
   constructor(private readonly formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.formBuilder.group({
@@ -20,8 +19,6 @@ export class LoginComponent {
 
   async onSubmit(){
     if(this.loginForm.valid){
-      // let logedInUser = await this.authService.login(this.loginForm.value)
-      // this.router.navigateByUrl('/dashboard');
       await this.authService.login(this.loginForm.value)
       .then(
         (response:any)=>{

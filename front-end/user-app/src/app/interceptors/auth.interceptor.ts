@@ -24,7 +24,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request);
       }
     }
-    console.log('auth interceptor is called');
     if (this.authService.isAuthenticated()) {
       request = request.clone({
         setHeaders: {

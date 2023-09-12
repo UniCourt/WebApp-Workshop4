@@ -11,7 +11,5 @@ export class HeaderComponent {
   constructor(private authService: AuthService){}
   logout(){
     this.authService.logout();
-    // window.location.href = '/login';
-    // localStorage.removeItem('jwt');
   }
 }

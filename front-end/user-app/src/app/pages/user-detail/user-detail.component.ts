@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { UserDetail } from 'src/app/model/common.dto';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,16 +7,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent {
-  userDetail = {
-    // id: this.userService.userId,
-    // name: 'a',
-    // city: 'a',
-    // companyName: 'a',
-    // emailId: 'a',
-    // phoneNumber: 'a',
-    // street: 'a',
-    // zipcode: 'a',
-  };
+  userDetail = {};
 
   hasError: boolean = false;
 

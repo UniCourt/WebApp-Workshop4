@@ -16,7 +16,6 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
-import { ErrorCatchingInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,12 +48,7 @@ import { ErrorCatchingInterceptor } from './interceptors/error.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorCatchingInterceptor,
-      multi: true,
-    },
+    }
   ],
   bootstrap: [AppComponent],
 })
