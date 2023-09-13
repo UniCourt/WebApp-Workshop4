@@ -27,7 +27,7 @@ export class AuthService {
           return res;
         }
       },
-      error(err){
+      error(err: any){
         console.log(err);
       }
     });
@@ -39,6 +39,9 @@ export class AuthService {
     
   }
 
+  async login(data: any){
+  }
+
   logout() {
     // Delete the jwt-token stored in local-storage.
     localStorage.removeItem('jwt');
@@ -47,12 +50,6 @@ export class AuthService {
     // Redirect the user to login page.
     window.location.href = '/login';
   } 
-
-  async login(data){
-    console.log("Entered data: " + JSON.stringify(data));
-    // Make API call to Nestjs Backend
-    return await this.http.post(this.baseUrl+'/auth/login',data).toPromise()
-  }
 
   getAuthToken():string {
     // Retrieve the jwt-token stored in local-storage and return it.
@@ -79,14 +76,6 @@ export class AuthService {
       this.loggedInUser['id']= null;
     }
     
-  }
-  checkLogin(){
-    // Return false if loggedInUser data(' id' & 'emailId' ) is not set. Else return true.
-    if(this.loggedInUser['id'] == null || this.loggedInUser['emailId'] == null){
-      return false;
-    } else{
-      return true;
-    }
   }
 
   getTokenExpirationDate(token: string): Date | null {

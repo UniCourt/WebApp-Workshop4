@@ -8,6 +8,7 @@ import { AuthService } from "../../services/auth.service";
 })
 export class SignUpComponent {
   loginForm: FormGroup;
+
   constructor(private readonly formBuilder: FormBuilder,private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
       firstName: formBuilder.control('', [Validators.required]),
@@ -19,11 +20,13 @@ export class SignUpComponent {
       password: formBuilder.control('', [Validators.required]),
       confirmPassword: formBuilder.control('', [Validators.required]),
     });
-    console.log(this.loginForm.valid);
   }
+
+
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.register(this.loginForm.value);
     }
   }
+  
 }

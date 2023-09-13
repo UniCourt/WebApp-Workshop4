@@ -19,23 +19,7 @@ export class LoginComponent {
 
   async onSubmit(){
     if(this.loginForm.valid){
-      await this.authService.login(this.loginForm.value)
-      .then(
-        (response:any)=>{
-          console.log(response);
-          if(response){
-            localStorage.setItem('jwt', response.Authorization);
-            this.authService.setLogedInUser();
-            this.router.navigateByUrl('/dashboard');
-          }else{
-            alert("Invalid email id password");
-          }
-          
-        },(error)=>{
-          console.log(error);
-          
-        }
-      );
+      
     }
   }
 

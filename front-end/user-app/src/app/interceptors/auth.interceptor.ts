@@ -24,20 +24,13 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request);
       }
     }
-    if (this.authService.isAuthenticated()) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.authService.getAuthToken()}`
-        }
-      });
-    } else {
-      // Token is expired or not available, then log out the user
-      this.authService.logout();      
-    }
+
+    //copy paste the code here
+    
+
     return next.handle(request).pipe(
       catchError((error) => {
         if (error.status === 401) {
-          // Handle token expiration, log out the user
           this.authService.logout();
         }
         return throwError(error);

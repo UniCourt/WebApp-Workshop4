@@ -11,7 +11,6 @@ import { AboutUsComponent } from './pages/static/about-us/about-us.component';
 import { ContactComponent } from './pages/static/contact/contact.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LogInterceptor } from './interceptors/log.interceptor';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -39,11 +38,6 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     ReactiveFormsModule,
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: LogInterceptor,
-    //   multi: true,
-    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

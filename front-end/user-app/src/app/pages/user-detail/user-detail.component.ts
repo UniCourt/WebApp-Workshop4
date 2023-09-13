@@ -17,9 +17,10 @@ export class UserDetailComponent {
     this.hasError = false;
     this.getUserDetails();
   }
+
   async getUserDetails(){
     let contactId = await this.userService.userId;
-    this.userDetail = await this.userService.getUserDetail(this.userService.userId).subscribe({
+    this.userDetail = await this.userService.getUserDetail(contactId).subscribe({
       next: (response: any) => {
         console.log('user detail response', response);
         this.userDetail['id'] = this.userService.userId,
