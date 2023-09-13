@@ -9,37 +9,28 @@ export class ContactController {
   @UseGuards(JwtAuthGuard)
   @Get('/getContact')
   getUser(@Query() query) {    
-    return this.contactService.getUser(query);
+    return;
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('/createContact')
   async createUser(@Body() userData) {
     console.log(userData);
-    
-    return await this.contactService.createUser(userData.data);
-  }
-
-  @Post('/updateUser')
-  async updateUser(userData:any){
-    return await this.contactService.updateUser(userData);
+    return;
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('/deleteContact')
   async deleteUser(@Query() queryData){
     console.log(queryData);
-    console.log("==================");
-    
-    
-    return await this.contactService.deleteContact(queryData);
+    return;
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/getUserById')
   getUserById(@Query() queryData) {
     console.log();
-    return this.contactService.getUserById(queryData);
+    return;
   }
   
 }
