@@ -6,27 +6,23 @@ import { JwtAuthGuard } from "../authGuard/jwt-auth.guard";
 export class ContactController {
   constructor(private contactService: ContactService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('/getContact')
   getUser(@Query() query) {    
     return;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post('/createContact')
   async createUser(@Body() userData) {
     console.log(userData);
     return;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete('/deleteContact')
   async deleteUser(@Query() queryData){
     console.log(queryData);
     return;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/getUserById')
   getUserById(@Query() queryData) {
     console.log();

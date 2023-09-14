@@ -10,7 +10,6 @@ import { User } from 'prisma/prismaAuthUserClient';
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
   ) {}
 
