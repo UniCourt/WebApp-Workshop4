@@ -147,6 +147,13 @@ Building Nestjs project that will serve as backend for Address Book Application.
     -   Path: `uc-controller-user/controller-user/src/auth/auth.service.ts`
     -   Code:
         ```
+        constructor(
+            private readonly prisma: PrismaService,
+            private readonly jwtService: JwtService,
+            private readonly usersService: UsersService,
+            ) {}
+        ```
+        ```
           async register(userDto: CreateUserDto): Promise<RegistrationStatus> {
             let status: RegistrationStatus = {
               success: true,
@@ -246,6 +253,9 @@ Building Nestjs project that will serve as backend for Address Book Application.
             },
           }),
         ],
+        ```
+        ```
+        providers: [AuthService, UsersService, JwtStrategy, PrismaService],
         ```
         ```
         exports: [PassportModule, JwtModule],
