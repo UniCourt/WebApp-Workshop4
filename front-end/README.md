@@ -1,5 +1,7 @@
 # Angular - Workshop 4
 
+
+
 ## JWT Authentication in angular
 
 1. auth.service.ts --
@@ -62,7 +64,37 @@
       }
       ```
 
-## CRUR operation angular
+## Adding children routes
+  app-routing.module.ts
+  ```
+  children: [
+      {
+        path: '',
+        component: UserListComponent,
+      },
+      {
+        path: 'about-us',
+        component: AboutUsComponent,
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
+      },
+      {
+        path: 'user-detail',
+        component: UserDetailComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'create-user',
+        component: CreateUserComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
+  ```
+
+
+## CRUD operation angular
 
 # user.service.ts
 
