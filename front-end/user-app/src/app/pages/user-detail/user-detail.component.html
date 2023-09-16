@@ -1,0 +1,20 @@
+<div class="user-detail">
+  <div *ngIf="!hasError" class="card">
+    <h2>{{ userDetail.name }}</h2>
+    <label>Emaild Id : {{ userDetail.emailId }}</label>
+    <label> Phone Number : {{ userDetail.phoneNumber }}</label>
+    <label>Company Name : {{ userDetail.companyName }}</label>
+    <div>
+      <h3>Address</h3>
+      <label>City: {{ userDetail.city }}</label
+        ><br />
+        <label>Street: {{ userDetail.street }}</label
+        ><br />
+      <label>ZipCode: {{ userDetail.zipcode }}</label
+      ><br />
+    </div>
+  </div>
+  <div *ngIf="hasError" class="error">
+    <span>Unable to show the data</span>
+  </div>
+</div>
