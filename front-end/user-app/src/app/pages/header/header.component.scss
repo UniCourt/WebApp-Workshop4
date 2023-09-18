@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: solid rgb(177, 177, 177) 0.5px;
+}
+
+.header > img {
+  cursor: pointer;
+}
+
+.menu > label {
+  margin-left: 25px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  color: rgb(65, 166, 212);
+}

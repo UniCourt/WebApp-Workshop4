@@ -1,0 +1,29 @@
+.container {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header > button {
+  width: 100px;
+  height: 50px;
+  background-color: rgb(65, 166, 212);
+  color: white;
+  border-radius: 5px;
+  border: solid 1px white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
