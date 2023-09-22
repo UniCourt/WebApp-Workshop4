@@ -24,6 +24,7 @@ export class AuthService {
     let returnedData = this.http.post(this.baseUrl+"/auth/register",data).subscribe({
       next(res:any){
         if(res.success){
+          console.log(res);
           return res;
         }
       },
@@ -40,7 +41,9 @@ export class AuthService {
   }
 
   async login(data: any){
+    return await this.http.post(this.baseUrl+'/auth/login',data).toPromise()
   }
+  
 
   logout() {
     // Delete the jwt-token stored in local-storage.

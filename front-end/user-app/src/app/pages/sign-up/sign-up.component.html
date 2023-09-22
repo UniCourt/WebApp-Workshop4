@@ -7,11 +7,11 @@
       <img src="../../../assets/unicourt-logo.png" alt="logo" height="54" />
     </div>
     <form class="login-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
-      <input placeholder="First name*" formControlName="firstName" />
-      <input placeholder="Last name" formControlName="lastName" />
-      <input placeholder="Email Id*" formControlName="emailId" />
-      <input placeholder="Password*" formControlName="password" />
-      <input placeholder="Confirm password*" formControlName="confirmPassword"/>
+      <input type="text" placeholder="First name*" formControlName="firstName" />
+      <input type="text" placeholder="Last name" formControlName="lastName" />
+      <input type="email" placeholder="Email Id*" formControlName="emailId" />
+      <input type="password" placeholder="Password*" formControlName="password" />
+      <input type="password" placeholder="Confirm password*" formControlName="confirmPassword"/>
       <button type="submit" class="btn-login" [disabled]="!loginForm.valid">SignUp</button>
     </form>
   </div>
