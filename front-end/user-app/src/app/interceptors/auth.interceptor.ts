@@ -26,7 +26,15 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     //copy paste the code here
-    
+    if (this.authService.isAuthenticated()) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authService.getAuthToken()}`
+        }
+      });
+    } else {
+      this.authService.logout();      
+    }
 
     return next.handle(request).pipe(
       catchError((error) => {
