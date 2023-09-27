@@ -1,3 +1,24 @@
-<app-header></app-header>
-<p>You are logged into dashboard</p>
-<router-outlet></router-outlet>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome Page</title>
+</head>
+
+<body>
+    <app-header></app-header>
+    <p>You are logged into the dashboard</p>
+    <h1>Welcome <span id="firstNamePlaceholder"></span></h1>
+    <router-outlet></router-outlet>
+
+    <script type="text/javascript">
+        function setFirstName() {
+            var firstName = "Name"; 
+            var firstNameElement = document.getElementById("firstNamePlaceholder");
+            firstNameElement.textContent = firstName;
+        }
+        document.addEventListener("DOMContentLoaded", setFirstName);
+    </script>
+</body>
+
+</html>

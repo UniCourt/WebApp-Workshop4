@@ -16,11 +16,25 @@ export class LoginComponent {
       password: formBuilder.control('', [Validators.required]),
     });
   }
-
   async onSubmit(){
     if(this.loginForm.valid){
+      await this.authService.login(this.loginForm.value)
+  .then(
+    (response:any)=>{
+      if(response){
+        localStorage.setItem('jwt', response.Authorization);
+        this.authService.setLogedInUser();
+        this.router.navigateByUrl('/dashboard');
+      }else{
+        alert("Invalid email id password");
+      }
+    },(error)=>{
+      console.log(error);
       
     }
+  );
+    }
   }
+  
 
 }

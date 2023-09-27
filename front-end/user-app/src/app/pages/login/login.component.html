@@ -8,7 +8,7 @@
     </div>
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <input placeholder="Enter the username" formControlName="username" />
-      <input placeholder="Enter the password" formControlName="password" />
+      <input placeholder="Enter the password" type="password" formControlName="password" />
       <button type="submit" class="btn-login" [disabled]="!loginForm.valid">Login</button>
     </form>
   </div>
