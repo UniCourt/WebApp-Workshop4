@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   async login(data: any){
+    return await this.http.post(this.baseUrl+'/auth/login',data).toPromise()
   }
 
   logout() {
@@ -67,6 +68,7 @@ export class AuthService {
       let decodedToken:any = jwt_decode(token);
       console.log(decodedToken);
       // Set the loged in user data.
+      this.loggedInUser['firstName']=decodedToken?.firstName;
       this.loggedInUser['emailId'] = decodedToken?.userEmailId;
       this.loggedInUser['id']= decodedToken.userId;
     } else{

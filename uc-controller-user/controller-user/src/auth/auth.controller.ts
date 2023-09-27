@@ -8,11 +8,19 @@ export class AuthController {
 
   @Post('register')
   public async register(@Body() createUserDto: CreateUserDto ): Promise<RegistrationStatus> {
-    return;
+    const result: RegistrationStatus = await this.authService.register(
+      createUserDto,
+    );
+    if (!result.success) {
+      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
+    }
+    return result;
   }
 
   @Post('login')
   public async login(@Body() loginUserDto: LoginUserDto): Promise<any> {
-    return;
-  }
+  console.log("loginUserDto: "+JSON.stringify(loginUserDto));
+  return await this.authService.login(loginUserDto);
+}
+
 }

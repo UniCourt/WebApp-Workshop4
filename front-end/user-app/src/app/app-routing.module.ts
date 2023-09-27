@@ -26,6 +26,28 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],  
+  },
+  {
+    path: '',
+    component: UserListComponent,
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+  },
+  {
+    path: 'user-detail',
+    component: UserDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'create-user',
+    component: CreateUserComponent,
+    canActivate: [AuthGuard],
   }
 ];
 
